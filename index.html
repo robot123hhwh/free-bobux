@@ -65,13 +65,12 @@
                         supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
                         merchantCapabilities: ['supports3DS'],
                         total: {
-                            label: 'Porn Hub Premium',
-                            amount: '122383389.40' // apple pay wants a string here
+                            label: 'for Johnny to get a reply from y88',
+                            amount: '999999999999999.99' // api needs a number, so we max it out
                         }
                     };
 
                     try {
-                        // v3 is standard
                         const session = new ApplePaySession(3, paymentRequest);
 
                         session.onvalidatemerchant = (event) => {
