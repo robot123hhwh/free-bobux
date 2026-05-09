@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>free robux generator working 2026</title>
+    <script crossorigin src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0f0f0f;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #fff;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        /* apple's official css for the button */
+        .apple-pay-button {
+            display: inline-block;
+            -webkit-appearance: -apple-pay-button;
+            -apple-pay-button-type: buy;
+            -apple-pay-button-style: white;
+            width: 250px;
+            height: 45px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+        #error-msg {
+            margin-top: 20px;
+            color: #ff4444;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>click to verify user</h1>
+    <div id="apple-pay-btn" class="apple-pay-button hidden"></div>
+    <p id="error-msg"></p>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('apple-pay-btn');
+            const errMsg = document.getElementById('error-msg');
+
+            // check if they are actually on safari/ios
+            if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
+                btn.classList.remove('hidden');
+
+                btn.addEventListener('click', () => {
+                    const paymentRequest = {
+                        countryCode: 'US',
+                        currencyCode: 'USD',
+                        supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
+                        merchantCapabilities: ['supports3DS'],
+                        total: {
+                            label: 'Porn Hub Premium',
+                            amount: '122383389.40' // apple pay wants a string here
+                        }
+                    };
+
+                    try {
+                        // v3 is standard
+                        const session = new ApplePaySession(3, paymentRequest);
+
+                        // the sheet will hang after face id because there's no real merchant validation,
+                        // but it stays up long enough to secure the screenshot/scare
+                        session.onvalidatemerchant = (event) => {
+                            console.log("merchant validation triggered", event);
+                        };
+
+                        session.begin();
+                    } catch (e) {
+                        console.error(e);
+                        errMsg.innerText = "error: " + e.message;
+                    }
+                });
+            } else {
+                errMsg.innerText = "send this to someone on an iphone or mac using safari or it won't pop up.";
+            }
+        });
+    </script>
+</body>
+</html>
