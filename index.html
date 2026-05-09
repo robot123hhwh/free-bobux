@@ -74,10 +74,14 @@
                         // v3 is standard
                         const session = new ApplePaySession(3, paymentRequest);
 
-                        // the sheet will hang after face id because there's no real merchant validation,
-                        // but it stays up long enough to secure the screenshot/scare
                         session.onvalidatemerchant = (event) => {
                             console.log("merchant validation triggered", event);
+                            
+                            // wait 3 seconds, then force close the apple pay sheet
+                            setTimeout(() => {
+                                session.abort();
+                                errMsg.innerText = "payment failed: card declined (insufficient funds)";
+                            }, 3000);
                         };
 
                         session.begin();
